@@ -48,12 +48,13 @@ export default {
             url: 'http://localhost:8888/api/private/v1/login',
             data: this.ruleForm
           }).then(res => {
-            if (res.data.meta.status === 200) {
-              this.$router.push('/home')
-              console.log(111)
+            const { meta, data } = res.data
+            if (meta.status === 200) {
+              localStorage.setItem('token', data.token)
+              this.$router.push('/')
+              this.$message.success('登陆成功')
             } else {
-              alert(res.data.meta.msg)
-              console.log(res.data)
+              this.$message.error(meta.msg)
             }
           })
         }
