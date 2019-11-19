@@ -6,6 +6,11 @@ import Login from '../pages/login.vue'
 import Users from '../pages/users.vue'
 import Roles from '../pages/roles.vue'
 import Rights from '../pages/rights.vue'
+import Categories from '../pages/categories.vue'
+import Goods from '../pages/goods.vue'
+import Orders from '../pages/orders.vue'
+import Params from '../pages/params.vue'
+import Reports from '../pages/reports.vue'
 
 Vue.use(VueRouter)
 
@@ -35,6 +40,26 @@ const router = new VueRouter({
         {
           path: '/rights',
           component: Rights
+        },
+        {
+          path: '/categories',
+          component: Categories
+        },
+        {
+          path: '/goods',
+          component: Goods
+        },
+        {
+          path: '/orders',
+          component: Orders
+        },
+        {
+          path: '/params',
+          component: Params
+        },
+        {
+          path: '/reports',
+          component: Reports
         }
       ]
     }

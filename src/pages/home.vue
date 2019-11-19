@@ -43,27 +43,17 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data () {
     return {
       menuList: []
     }
   },
-  created () {
-    axios({
-      url: 'http://localhost:8888/api/private/v1/menus',
-      method: 'get',
-      headers: {
-        Authorization: localStorage.getItem('token')
-      }
-    }).then(res => {
-      const { data, meta } = res.data
-      if (meta.status === 200) {
-        this.menuList = data
-        console.log(this.menuList)
-      }
-    })
+  async created () {
+    const { data, meta } = await this.$axios.get('menus')
+    if (meta.status === 200) {
+      this.menuList = data
+    }
   },
   computed: {
     defaultActive () {
@@ -71,16 +61,17 @@ export default {
     }
   },
   methods: {
-    logout () {
-      this.$confirm('确定要退出登陆么?', '温馨提示', {
-        type: 'warning'
-      }).then(() => {
+    async logout () {
+      try {
+        await this.$confirm('确定要退出登陆么?', '温馨提示', {
+          type: 'warning'
+        })
         localStorage.removeItem('token')
         this.$router.push('/login')
         this.$message.success('成功退出登陆')
-      }).catch(() => {
+      } catch {
         this.$message.info('操作取消')
-      })
+      }
     }
   }
 }
